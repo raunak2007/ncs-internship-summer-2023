@@ -1,4 +1,5 @@
-version: "3.8"
+version: '3.8'
+
 services:
   app:
     build:
@@ -6,6 +7,8 @@ services:
       dockerfile: .devcontainer/Dockerfile.dev
     init: true
     volumes:
+      # Forwards the local Docker socket to the container.
+      - /var/run/docker.sock:/var/run/docker.sock
       # Use a named volume for the source code
       - my-app:/workspace
       # Persist VS Code extensions between rebuilds
@@ -13,11 +16,20 @@ services:
       # And/or for VS Code Insiders
       - vscode-extensions-insiders:/root/.vscode-server-insiders/extensions
 
-    container_name: my-app-development
+    networks:
+      - my-app-network
+    container_name: my-dockerized-app
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
 
 volumes:
   my-app:
+    external: true
   vscode-extensions:
   vscode-extensions-insiders:
+
+# This external network is shared with the main docker-compose.yml config
+# Ensures that services started from inside this dev container can all communicate
+networks:
+  my-app-network:
+    external: true
