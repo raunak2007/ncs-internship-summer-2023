@@ -2,16 +2,16 @@
 FROM node:14-alpine
 
 # Set the working directory inside the container
-WORKDIR /app
+WORKDIR /app/backend
 
 # Copy package.json and package-lock.json to the working directory
-COPY backend/package.json backend/package-lock.json ./
+COPY package.json package-lock.json ./
 
 # Install the dependencies
 RUN npm ci --only=production
 
 # Copy the rest of the backend files to the working directory
-COPY backend ./
+COPY . .
 
 # Expose the port on which the backend will run (8080 by default)
 EXPOSE 8080
