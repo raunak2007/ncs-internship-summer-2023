@@ -1,13 +1,17 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "Backend service",
+  "description": "Node.js on Docker",
+  "author": "First Last <first.last@example.com>",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node src/server.js"
   },
   "dependencies": {
-    "express": "^4.17.1"
-    // Add other backend dependencies as needed
+    "express": "^4.16.1",
+    "pg": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }
