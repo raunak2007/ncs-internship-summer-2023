@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  my-app-frontend:
+    build: ./frontend
+    ports:
+      - 3000:3000
+    # Needed to keep the container from exiting
+    stdin_open: true
+
+  my-app-backend:
+    depends_on:
+      - my-app-db
+    build: ./backend
+    ports:
+      - 8080:8080
+
+  my-app-db:
+    image: postgres:13-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: example
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: mydb
+    volumes:
+      - postgresdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
