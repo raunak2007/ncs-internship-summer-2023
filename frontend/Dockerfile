@@ -1,24 +1,9 @@
-# Use an official Node.js image as the base
-FROM node:14-alpine
+# Select a specfic if possible, otherwise use a minimal image that gets you close
+FROM node:14.8.0-alpine3.10
 
-# Set the working directory inside the container
-WORKDIR /app/frontend
-
-# Copy the package.json and package-lock.json to the working directory
-COPY package.json .
-COPY package-lock.json .
-
-# Install the dependencies
-RUN npm ci --only=production
-
-# Copy the rest of the frontend files to the working directory
-COPY . .
-
-# Build the frontend
-RUN npm run build
-
-# Expose the port on which the frontend will run (3000 by default)
+# Expose port
 EXPOSE 3000
 
-# Set the command to run the frontend server
-CMD ["npm", "start"]
+# Start
+WORKDIR /home/app/frontend
+ENTRYPOINT [ "npm", "run", "start" ]
