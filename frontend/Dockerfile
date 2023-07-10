@@ -2,16 +2,16 @@
 FROM node:14-alpine
 
 # Set the working directory inside the container
-WORKDIR /app
+WORKDIR /app/frontend
 
 # Copy package.json and package-lock.json to the working directory
-COPY frontend/package.json frontend/package-lock.json ./
+COPY package.json package-lock.json ./
 
 # Install the dependencies
 RUN npm ci --only=production
 
 # Copy the rest of the frontend files to the working directory
-COPY frontend ./
+COPY . .
 
 # Build the frontend
 RUN npm run build
