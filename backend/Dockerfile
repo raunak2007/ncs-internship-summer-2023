@@ -1,21 +1,9 @@
-# Use an official Node.js image as the base
-FROM node:14-alpine
+# Select a specfic if possible, otherwise use a minimal image that gets you close
+FROM node:14.8.0-alpine3.10
 
-# Set the working directory inside the container
-WORKDIR /app/backend
-
-# Copy the package.json and package-lock.json to the working directory
-COPY package.json .
-COPY package-lock.json .
-
-# Install the dependencies
-RUN npm ci --only=production
-
-# Copy the rest of the backend files to the working directory
-COPY . .
-
-# Expose the port on which the backend will run (8080 by default)
+# Expose port
 EXPOSE 8080
 
-# Set the command to run the backend server
-CMD ["node", "server.js"]
+# Start
+WORKDIR /home/app/backend
+ENTRYPOINT [ "npm", "run", "start" ]
