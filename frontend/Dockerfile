@@ -5,10 +5,11 @@ FROM node:14-alpine
 WORKDIR /app
 
 # Copy package.json and package-lock.json to the working directory
-COPY package.json package-lock.json ./
+COPY package.json .
+COPY package-lock.json .
 
 # Install the dependencies
-RUN npm install --production
+RUN npm ci --only=production
 
 # Copy the rest of the frontend files to the working directory
 COPY . .
