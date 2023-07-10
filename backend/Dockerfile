@@ -4,8 +4,9 @@ FROM node:14-alpine
 # Set the working directory inside the container
 WORKDIR /app/backend
 
-# Copy package.json and package-lock.json to the working directory
-COPY package.json package-lock.json ./
+# Copy the package.json and package-lock.json to the working directory
+COPY package.json .
+COPY package-lock.json .
 
 # Install the dependencies
 RUN npm ci --only=production
