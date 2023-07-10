@@ -1,16 +1,9 @@
 const express = require('express');
 const app = express();
+const port = 8080; // Change the port to 8080
 
-// Middleware
-app.use(express.json());
+// Add your backend routes and logic here
 
-// Routes
-app.get('/', (req, res) => {
-  res.send('Hello, world!');
-});
-
-// Start the server
-const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+  console.log(`Server running on http://localhost:${port}`);
 });
